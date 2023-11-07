@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract StudentData {
+    struct Student {
+        uint256 id;
+        string name;
+        uint256 age;
+    }
+    
+    Student[] public students;
+    
+    // Add a student
+    function addStudent(uint256 _id, string memory _name, uint256 _age) public {
+        students.push(Student(_id, _name, _age));
+    }
+    
+    // Get the number of students
+    function getStudentCount() public view returns (uint256) {
+        return students.length;
+    }
+    
+    // Fallback function to receive Ether
+//     receive is the function name, which indicates that it's the fallback function.
+// external is the visibility keyword, which specifies that it can be called from outside the contract.
+// payable indicates that the function can receive Ether.
+    receive() external payable {
+        // You can add custom logic here if needed
+        require(msg.value > 0.1 ether, "Minimum amount is 0.1 Ether");
+    }
+}
